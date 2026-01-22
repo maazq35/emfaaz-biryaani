@@ -77,9 +77,6 @@ document.querySelectorAll('.contact-card').forEach(card => {
     observer.observe(card);
 });
 
-// Remove parallax effect that might cause overlapping
-// Parallax effect removed to prevent overlapping issues
-
 // Add loading animation
 window.addEventListener('load', () => {
     document.body.style.opacity = '0';
@@ -88,3 +85,19 @@ window.addEventListener('load', () => {
         document.body.style.opacity = '1';
     }, 100);
 });
+
+// Ensure WhatsApp button is visible (fallback for edge cases)
+function ensureWhatsAppButtonVisible() {
+    const whatsappContainer = document.getElementById('whatsapp-button');
+    if (whatsappContainer && window.getComputedStyle(whatsappContainer).position !== 'fixed') {
+        whatsappContainer.style.setProperty('position', 'fixed', 'important');
+        whatsappContainer.style.setProperty('display', 'block', 'important');
+    }
+}
+
+// Initialize on DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ensureWhatsAppButtonVisible);
+} else {
+    ensureWhatsAppButtonVisible();
+}

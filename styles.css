@@ -1146,3 +1146,119 @@ body {
         font-size: 1rem;
     }
 }
+
+/* WhatsApp Floating Button */
+#whatsapp-button {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    z-index: 999999;
+    display: block;
+}
+
+.whatsapp-float {
+    position: relative;
+    background: #25D366;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4),
+                0 8px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    font-weight: 600;
+    font-size: 0.95rem;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-width: 140px;
+    min-height: 44px;
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5),
+                0 12px 40px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #20BA5A 0%, #25D366 100%);
+}
+
+.whatsapp-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    padding: 4px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.whatsapp-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.whatsapp-float:hover .whatsapp-icon {
+    transform: rotate(15deg) scale(1.1);
+}
+
+.whatsapp-text {
+    white-space: nowrap;
+    font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+/* Responsive WhatsApp Button - Mobile: Icon Only */
+@media screen and (max-width: 768px) {
+    #whatsapp-button {
+        right: 15px;
+        bottom: 15px;
+    }
+    
+    .whatsapp-float {
+        padding: 14px;
+        width: 56px;
+        height: 56px;
+        min-width: 56px;
+        min-height: 56px;
+        border-radius: 50%;
+        gap: 0;
+    }
+    
+    .whatsapp-icon {
+        width: 28px;
+        height: 28px;
+        background: transparent;
+        padding: 0;
+    }
+    
+    .whatsapp-text {
+        display: none;
+    }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 360px) {
+    #whatsapp-button {
+        right: 12px;
+        bottom: 12px;
+    }
+    
+    .whatsapp-float {
+        padding: 12px;
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        min-height: 52px;
+    }
+    
+    .whatsapp-icon {
+        width: 26px;
+        height: 26px;
+    }
+}
