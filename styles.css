@@ -478,7 +478,7 @@ body {
 
 .price-item {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr auto auto auto;
     align-items: center;
     padding: 0.6rem 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
@@ -491,6 +491,10 @@ body {
 
 .price-item .price {
     justify-self: center;
+}
+
+.price-item .order-now-btn {
+    justify-self: end;
 }
 
 .price-item .price-whatsapp {
@@ -525,6 +529,32 @@ body {
     color: var(--deep-red);
 }
 
+.order-now-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, var(--dark-red) 0%, var(--deep-red) 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(123, 47, 31, 0.35);
+}
+
+.order-now-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3px 12px rgba(123, 47, 31, 0.45);
+}
+
+.order-now-btn--disabled {
+    background: #9e9e9e;
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.5;
+}
+
 .price-whatsapp {
     color: white;
     background: #25D366;
@@ -535,13 +565,13 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.4);
+    box-shadow: 0 2px 10px rgba(37, 211, 102, 0.45);
 }
 
 .price-whatsapp:hover {
     background: #20BA5A;
-    transform: scale(1.1);
-    box-shadow: 0 3px 12px rgba(37, 211, 102, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 3px 14px rgba(37, 211, 102, 0.5);
 }
 
 .price-whatsapp svg {
@@ -1166,6 +1196,11 @@ body {
 
     .price-large {
         font-size: 1.5rem;
+    }
+
+    .order-now-btn {
+        padding: 6px 10px;
+        font-size: 0.8rem;
     }
 
     .section-title {
