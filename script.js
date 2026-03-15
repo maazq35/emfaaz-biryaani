@@ -101,3 +101,83 @@ if (document.readyState === 'loading') {
 } else {
     ensureWhatsAppButtonVisible();
 }
+
+// Time slot dropdown for 1 kg orders
+(function () {
+    const dropdown = document.getElementById('wa-time-slot-dropdown');
+    const backdrop = document.getElementById('wa-time-slot-backdrop');
+    const panel = dropdown && dropdown.querySelector('.wa-time-slot-dropdown__panel');
+    const options = dropdown && dropdown.querySelectorAll('.wa-time-slot-option');
+    const submitBtn = dropdown && dropdown.querySelector('.wa-time-slot-dropdown__submit');
+    const oneKgLinks = document.querySelectorAll('.order-now-whatsapp--1kg, [data-wa-1kg]');
+
+    let currentWaHref = '';
+
+    function openDropdown(waHref) {
+        currentWaHref = waHref;
+        dropdown.setAttribute('aria-hidden', 'false');
+        backdrop.setAttribute('aria-hidden', 'false');
+        dropdown.classList.add('is-open');
+        backdrop.classList.add('is-open');
+        if (options) options.forEach(o => o.classList.remove('is-selected'));
+    }
+
+    function closeDropdown() {
+        dropdown.classList.remove('is-open');
+        backdrop.classList.remove('is-open');
+        dropdown.setAttribute('aria-hidden', 'true');
+        backdrop.setAttribute('aria-hidden', 'true');
+        currentWaHref = '';
+    }
+
+    function buildWaUrlWithSlot(baseUrl, slotLabel) {
+        try {
+            const url = new URL(baseUrl);
+            const text = url.searchParams.get('text') || '';
+            const decoded = decodeURIComponent(text);
+            const newText = decoded + ' Preferred time slot: ' + slotLabel;
+            url.searchParams.set('text', newText);
+            return url.toString();
+        } catch (e) {
+            return baseUrl;
+        }
+    }
+
+    if (oneKgLinks.length) {
+        oneKgLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                openDropdown(this.getAttribute('href'));
+            });
+        });
+    }
+
+    if (options) {
+        options.forEach(opt => {
+            opt.addEventListener('click', function () {
+                options.forEach(o => o.classList.remove('is-selected'));
+                this.classList.add('is-selected');
+            });
+        });
+    }
+
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function () {
+            const selected = dropdown.querySelector('.wa-time-slot-option.is-selected');
+            if (!selected || !currentWaHref) return;
+            const slot = selected.getAttribute('data-slot');
+            const url = buildWaUrlWithSlot(currentWaHref, slot);
+            window.open(url, '_blank');
+            closeDropdown();
+        });
+    }
+
+    if (backdrop) {
+        backdrop.addEventListener('click', closeDropdown);
+    }
+
+    const closeBtn = document.getElementById('wa-time-slot-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeDropdown);
+    }
+})();
